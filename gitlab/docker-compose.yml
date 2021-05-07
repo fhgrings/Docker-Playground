@@ -1,0 +1,13 @@
+version: "3.6"
+services:
+  gitlab:
+    image: gitlab/gitlab-ee:latest
+    ports:
+      - "22:22"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./volumes/data:/var/opt/gitlab
+      - ./volumes/logs:/var/log/gitlab
+      - ./volumes/config:/etc/gitlab
+
