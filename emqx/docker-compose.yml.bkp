@@ -1,0 +1,26 @@
+version: '3.7'
+volumes:
+  vol-emqx-path:
+    name: foo-emqx-path
+  # vol-emqx-data:
+  #   name: foo-emqx-data
+  # vol-emqx-etc:
+  #   name: foo-emqx-etc
+  # vol-emqx-log:
+  #   name: foo-emqx-log
+services:
+  emqx:
+      image: emqx/emqx:v4.0.1
+      container_name: emqx
+      restart: always
+      environment:
+          EMQX_NAME: nb_iot
+          EMQX_HOST: 127.0.0.1
+      ports:
+        - "18083:18083"
+        - "1883:1883"
+      volumes:
+        - vol-emqx-path:/
+        # - vol-emqx-data:/opt/emqx/data
+        # - vol-emqx-etc:/opt/emqx/etc
+        # - vol-emqx-log:/opt/emqx/log

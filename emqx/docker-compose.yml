@@ -1,0 +1,23 @@
+version: '3.7'
+volumes:
+  vol-emqx-data:
+    name: foo-emqx-data
+  vol-emqx-etc:
+    name: foo-emqx-etc
+  vol-emqx-log:
+    name: foo-emqx-log
+
+services:
+  emqx:
+    image: emqx/emqx:v4.0.0
+    restart: always
+    ports:     
+      - "18083:18083"
+      - "1883:1883"
+    environment:
+      EMQX_NAME: foo_emqx
+      EMQX_HOST: 127.0.0.1
+    volumes:
+      - vol-emqx-data:/opt/emqx/data
+      - vol-emqx-etc:/opt/emqx/etc
+      - vol-emqx-log:/opt/emqx/log

@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  influxdb:
+    image: influxdb:1.8.2
+    container_name: influxdb
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "8090:8090"
+    volumes:
+      - ./volumes/influx/data/:/var/lib/influxdb
+    environment:
+        INFLUXDB_DB: nb_iot
+  emqx:
+      image: emqx/emqx:4.3-rc.3
+      container_name: emqx
+      restart: always
+      environment:
+          EMQX_NAME: nb_iot
+          EMQX_HOST: 172.17.0.1
+      ports:
+        - "18083:18083"
+        - "1883:1883"
+  mqtt-influx:
+    image: mqtt-influxdb
+    container_name: mqtt-influxdb
+    build:
+      context: ./services/mqtt-influxdb
+      dockerfile: Dockerfile
+    ports:
+      - "2000:2000"
+    restart: on-failure
+    depends_on:
+      - "influxdb"
+      - "emqx"
+      
