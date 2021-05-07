@@ -1,0 +1,6 @@
+*.tar
+*/volumes/
+*/__pycache__/
+*.pyc
+/jboss-eap/jboss/deployments/
+
