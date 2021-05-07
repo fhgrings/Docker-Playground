@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  database:
+      image: centos:7
+      container_name: database
+      deploy:
+        replicas: 1
+        resources:
+          limits:
+            cpus: '1'
+            memory: 150M
+  redis:
+      image: redis:2.8
+      depends_on: 
+         - database 

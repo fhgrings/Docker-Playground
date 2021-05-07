@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  redis:
+    image: redis:2.8
+    networks:
+      - frontapp
+
+  elasticsearch:
+    image: elasticsearch:2.2
+    networks:
+      - frontapp
+
+  postgres:  
+    image: postgres:9.5
+    environment:
+      POSTGRES_USER: elephant
+      POSTGRES_PASSWORD: smarty_pants
+      POSTGRES_DB: elephant
+    volumes:
+      - /var/lib/postgresql/data
+    networks:
+      - frontapp
+
+networks:
+  frontapp:
+    driver: bridge
