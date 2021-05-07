@@ -1,0 +1,10 @@
+[default]
+SQLALCHEMY_DATABASE_URI = "mysql://admin:admin@172.17.0.1:5086/main"
+TITLE = "login"
+EXTENSIONS = [
+    "src.ext.configuration:init_app",
+    "src.ext.database:init_app",
+    "src.blueprints.routes.routes:init_app",
+]
+PUBLIC_KEY = "thisisthesecretkey"
+SECRET_KEY = "1a2b3c4d"
