@@ -1,0 +1,19 @@
+---
+version: '3.7'
+services:
+  database:
+      image: mysql:8
+      ports:
+          - "3306:3306"
+      volumes:
+          - ./sql:/docker-entrypoint-initdb.d
+      environment:
+          MYSQL_ROOT_USER: admin
+          MYSQL_ROOT_PASSWORD: admin
+          MYSQL_DATABASE: main
+      deploy:
+        replicas: 1
+        resources:
+          limits:
+            cpus: '1'
+            memory: 150M

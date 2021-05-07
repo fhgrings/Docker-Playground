@@ -1,0 +1,38 @@
+---
+version: '3.7'
+services:
+  database:
+      container_name: database
+      image: mysql:8
+      ports:
+          - "3306:3306"
+      volumes:
+          - ./database/sql:/docker-entrypoint-initdb.d
+      environment:
+          MYSQL_ROOT_USER: admin
+          MYSQL_ROOT_PASSWORD: admin
+          MYSQL_DATABASE: main
+      deploy:
+        replicas: 1
+        resources:
+          limits:
+            cpus: '1'
+            memory: 150M
+  jboss:
+      container_name: jboss-eap
+      build: ./jboss
+      volumes:
+          - ./jboss/deployments:/root/EAP-7.0.0/domain/data/content/
+          - ./jboss/domain.xml:/root/EAP-7.0.0/domain/configuration/domain.xml
+      ports:
+          - "8080:8080"
+          - "8009:8009"
+          - "8230:8230"
+          - "8159:8159"
+          - "9990:9990"
+          - "9090:9090"
+  modjk:
+      container_name: modjk
+      build: ./apache
+      ports:
+          - "80:80"
